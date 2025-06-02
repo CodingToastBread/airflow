@@ -1,0 +1,12 @@
+{
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "",
+            "depth": 15,
+            "includeAllSymbols": false
+        }
+    ],
+    // "python.envFile": "${workspaceFolder}/.env"
+    "python.analysis.extraPaths": ["plugins"],
+}
