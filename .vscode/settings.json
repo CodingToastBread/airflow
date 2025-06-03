@@ -9,4 +9,10 @@
     ],
     // "python.envFile": "${workspaceFolder}/.env"
     "python.analysis.extraPaths": ["plugins"],
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.defaultColorDecorators": "never",
+        "editor.formatOnType": false,
+        "editor.wordBasedSuggestions": "off"
+    }
 }
