@@ -12,7 +12,7 @@ with DAG(
 
     bash_t1 = BashOperator(
         task_id="bash_t1",
-        bash_command='echo "data_interval_end : {{ data_interval_end }}'
+        bash_command='echo "data_interval_end : {{ data_interval_end }}"',
     )
 
     bash_t2 = BashOperator(
@@ -23,5 +23,5 @@ with DAG(
         },
         bash_command='echo $START_DATE && echo $END_DATE',
     )
-    
+
     bash_t1 >> bash_t2
