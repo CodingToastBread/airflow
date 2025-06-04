@@ -10,6 +10,6 @@
     // "python.envFile": "${workspaceFolder}/.env"
     "python.analysis.extraPaths": [
         "plugins"
-    ],
-    "python.analysis.typeCheckingMode": "standard",
+    ]
+    // "python.analysis.typeCheckingMode": "standard",
 }
