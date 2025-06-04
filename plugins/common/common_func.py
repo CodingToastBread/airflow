@@ -22,6 +22,5 @@ def good_bye_world(name, age, *args, **kwargs) -> None:
     print('good_by_world')
     print('my name is ...', name)
     print('my age is ...', age)
-    print('arg list : ', print(args))
-    print('kwargs -> key_sample1 : ', \
-        print(kwargs.get('key_sample1') or 'no value found'))
+    print('arg list : ', args)
+    print('kwargs -> key_sample1 : ', kwargs['key_sample1'])
