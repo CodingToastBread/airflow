@@ -17,3 +17,10 @@ def regist2(name, sex, *args, **kwargs):
         print(email)
     if phone:
         print(phone)
+
+def good_bye_world(name, age, *args, **kwargs) -> None:
+    print('good_by_world')
+    print('my name is ...', name)
+    print('my age is ...', age)
+    print('arg list : ', print(args))
+    print('kwargs map : ', print(kwargs))
