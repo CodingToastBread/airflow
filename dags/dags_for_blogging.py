@@ -12,7 +12,7 @@ with DAG(
     # 스케줄의 시작 시간은 2025-06-04 부터이고,
     # 현재 시각은 2025-06-06 13:00:00 입니다.
     start_date=pendulum.datetime(2025, 6, 4, tz="Asia/Seoul"),
-    catchup=False,
+    catchup=True,
 ) as dags:
 
     # 아무런 동작을 하지 않는 EmptyOperator 작성
