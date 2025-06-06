@@ -1,9 +1,9 @@
 {
-    "python.analysis.autoImportCompletions": true,
+    // "python.analysis.autoImportCompletions": false,
     "python.analysis.packageIndexDepths": [
         {
-            "name": "airflow",
-            "depth": 15,
+            "name": "",
+            "depth": 20,
             "includeAllSymbols": false
         }
     ],
