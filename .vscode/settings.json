@@ -10,6 +10,7 @@
     // "python.envFile": "${workspaceFolder}/.env"
     "python.analysis.extraPaths": [
         "plugins"
-    ]
+    ],
+    "python.analysis.autoImportCompletions": true
     // "python.analysis.typeCheckingMode": "standard",
 }
