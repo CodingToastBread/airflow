@@ -17,6 +17,7 @@ with DAG(
     @task(task_id="python_xcom_pull_1")
     def xcom_pull_1(**kwargs):
         ti = kwargs["ti"]
+        # task_ids 만 달랑 있으면, 자동으로 RETURN_VALUE 키에 매칭된는 값이 들어옴.
         value1 = ti.xcom_pull(task_ids="python_xcom_push_by_return")
         print("xcom_pull 메소드로 직접 찾은 리턴값: ", value1)
 
