@@ -1,6 +1,6 @@
-from tkinter import Variable
 from airflow import DAG
 from airflow.decorators import task
+from airflow.models import Variable
 from airflow.operators.bash import BashOperator
 import pendulum
 
