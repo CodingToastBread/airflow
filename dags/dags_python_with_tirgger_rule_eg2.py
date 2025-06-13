@@ -5,7 +5,7 @@ import pendulum
 
 
 with DAG(
-    dag_id="dags_python_with_tirgger_rule_eg1",
+    dag_id="dags_python_with_tirgger_rule_eg2",
     start_date=pendulum.datetime(2025, 6, 1, tz="Asia/Seoul"),
     schedule=None,
     catchup=False,
