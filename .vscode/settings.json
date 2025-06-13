@@ -3,7 +3,7 @@
     "python.analysis.packageIndexDepths": [
         {
             "name": "",
-            "depth": 20,
+            "depth": 15,
             "includeAllSymbols": false
         }
     ],
