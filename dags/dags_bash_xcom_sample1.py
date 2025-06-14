@@ -50,8 +50,8 @@ with DAG(
     pull_with_bash_task = BashOperator(
         task_id="pull_with_bash_task",
         env={
-            "PERSONAL_INFO": '{{ ti.xcom_pull(task_ids="push_with_python_task")["personal_info"] }}',
-            "RETURN_VALUE": '{{ ti.xcom_pull(task_ids="push_with_python_task")["return_value"] }}',
+            "PERSONAL_INFO": '{{ ti.xcom_pull(key="personal_info", task_ids="push_with_python_task")["name"] }}',
+            "RETURN_VALUE": '{{ ti.xcom_pull(task_ids="push_with_python_task") }}',
         },
         bash_command=
             'echo PERSONAL_INFO : $PERSONAL_INFO && '
