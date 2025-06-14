@@ -18,7 +18,6 @@ with DAG(
         # xcom_push 메소드로 공유 데이터 INSERT
         ti.xcom_push(key="key", value="value11111")
         ti.xcom_push(key="list", value=[1, 2, 3])
-        ti.xcom_push(key="map1", value={"name": "coding_toast"})
         return "return 111111"
 
     @task(task_id="pushing_task_2")
