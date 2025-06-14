@@ -1,5 +1,4 @@
 from airflow import DAG
-from airflow.decorators import task
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import BranchPythonOperator
 import pendulum
@@ -23,7 +22,7 @@ with DAG(
             return ["downstream_task1", "downstream_task2"]
 
     random_select_task = BranchPythonOperator(
-        task_id='python_branch_task',
+        task_id='random_select_task',
         python_callable=select_next_task        
     )
 
