@@ -27,9 +27,9 @@ with DAG(
     @task(task_id="xcom_pull_with_python_task")
     def xcom_pull_with_python_task(**kwargs):
         ti = kwargs["ti"]
-        status_value = ti.xcom_pull(key="name")
+        name = ti.xcom_pull(key="name")
         return_value = ti.xcom_pull(task_ids="xcom_push_with_bash_task")
-        print("xcom-data ==> name:", str(status_value))
+        print("xcom-data ==> name:", str(name))
         print("xcom-data ==> return_value:", return_value)
 
 
