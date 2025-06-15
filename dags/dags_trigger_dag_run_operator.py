@@ -1,0 +1,35 @@
+from airflow import DAG
+from airflow.exceptions import AirflowException
+from airflow.operators.bash import BashOperator
+from airflow.operators.python import PythonOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from ipykernel import trio_runner
+import pendulum
+from tornado.process import task_id
+
+
+with DAG(
+    dag_id="dags_trigger_dag_run_operator",
+    start_date=pendulum.datetime(2025, 6, 1, tz="Asia/Seoul"),
+    schedule='30 0 * * *',
+    catchup=False,
+) as dag:
+
+    start_task = BashOperator(
+        task_id='start_task',
+        bash_command='echo "START!"'
+    )
+
+    trigger_dag_task = TriggerDagRunOperator(
+        task_id='trigger_dag_task',
+        trigger_dag_id='dags_python_operator',
+        trigger_run_id=None,
+        execution_date='{{date_interval_start}}',
+        reset_dag_run=True,
+        wait_for_completion=False,
+        poke_interval=60,
+        allowed_states=['success'],
+        failed_states=None
+    )
+
+    start_task >> trigger_dag_task
