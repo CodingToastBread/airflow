@@ -1,11 +1,7 @@
 from airflow import DAG
-from airflow.exceptions import AirflowException
 from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
-from ipykernel import trio_runner
 import pendulum
-from tornado.process import task_id
 
 
 with DAG(
