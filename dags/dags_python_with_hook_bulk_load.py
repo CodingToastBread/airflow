@@ -13,7 +13,7 @@ with DAG(
     dag_id="dags_python_with_hook_bulk_load",
     start_date=pendulum.datetime(2025, 6, 1, tz="Asia/Seoul"),
     schedule="0 7 * * *",
-    catchup=None,
+    catchup=False,
 ) as dag:
 
     def insrt_postgres(postgres_conn_id, tbl_nm, file_nm, **kwargs):
