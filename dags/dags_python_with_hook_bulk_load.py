@@ -12,8 +12,8 @@ from operators.seoul_api_to_csv_operator import SeoulApiToCsvOperator
 with DAG(
     dag_id="dags_python_with_hook_bulk_load",
     start_date=pendulum.datetime(2025, 6, 1, tz="Asia/Seoul"),
-    catchup='0 7 * * *',
-    schedule=None,
+    schedule="0 7 * * *",
+    catchup=None,
 ) as dag:
 
     def insrt_postgres(postgres_conn_id, tbl_nm, file_nm, **kwargs):
