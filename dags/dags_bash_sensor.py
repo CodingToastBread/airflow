@@ -49,7 +49,7 @@ with DAG(
     bash_task = BashOperator(
         task_id='bash_task',
         env={ "FILE": '/opt/airflow/files/GlobalJobCounselLngMmRst/{{data_interval_end.in_timezone("Asia/Seoul") | ds_nodash}}/GlobalJobCounselLngMmRst.csv' },
-        bash_command='echo "건수" `cat $FILE | wc -l`"'
+        bash_command='echo "건수: `cat $FILE | wc -l`"'
     )
     
     [sensor_task_by_poke, sensor_task_by_reschedule] >> bash_task
