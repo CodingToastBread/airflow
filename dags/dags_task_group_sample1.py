@@ -8,6 +8,7 @@ with DAG(
     dag_id='dags_task_group_sample1',
     start_date=pendulum.datetime(2025, 6, 1, tz='Asia/Seoul'),
     schedule='@daily',
+    catchup=False
 ) as dag:
     
     # 목표
