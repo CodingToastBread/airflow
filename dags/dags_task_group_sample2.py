@@ -28,7 +28,7 @@ with DAG(
         @task_group(group_id='group_in_group')
         def group_in_group():
             @task(task_id='task_in_group_in_group')
-            def group_1_task_2():
+            def task_in_group_in_group():
                 print('task_in_group_in_group executed')
         
         group_1_task_1() >> group_in_group() >> group_1_task_2()
