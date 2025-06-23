@@ -30,6 +30,8 @@ with DAG(
             @task(task_id='task_in_group_in_group')
             def task_in_group_in_group():
                 print('task_in_group_in_group executed')
+            
+            task_in_group_in_group()
         
         group_1_task_1() >> group_in_group() >> group_1_task_2()
     
