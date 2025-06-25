@@ -52,12 +52,16 @@ with DAG(
 
     @task(task_id='save_json_text_to_file')
     def save_json_text_to_file(**kwargs):
+        from airflow.models import Variable
         print(f'data_interval_end : {kwargs["data_interval_start"].in_timezone("Asia/Seoul")}')
 
         # read_dummy_json_task 메소드가 반환한 response.text 값을 받습니다.
         ti = kwargs['ti']
         result_json = ti.xcom_pull(task_ids='read_dummy_json_task')
-        file_save_dir = '/opt/airflow/files'
+        
+        # 공통 저장 디렉토리 경로 조회
+        # file_save_dir = '/opt/airflow/files'
+        file_save_dir = Variable.get("json_save_directory")
         os.makedirs(file_save_dir, exist_ok=True)
         with open(f'{file_save_dir}/data.json', 'w', encoding='UTF-8') as f:
             f.write(result_json) # json 문자열을 파일로 저장!
