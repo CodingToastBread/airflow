@@ -8,7 +8,7 @@ import pendulum
 
 
 with DAG(
-    dag_id="dags_simple_http_operator",
+    dag_id="dags_sensor_for_blog",
     start_date=pendulum.datetime(2025, 6, 1, tz="Asia/Seoul"),
     catchup=False,
     schedule=None,
