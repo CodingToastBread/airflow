@@ -5,7 +5,7 @@ import pendulum
 
 
 with DAG(
-    dag_id="dags_sensor_for_blog",
+    dag_id="dags_connection_hook_blog",
     start_date=pendulum.datetime(2025, 6, 1, tz="Asia/Seoul"),
     catchup=False,
     schedule=None,
