@@ -28,7 +28,7 @@ with DAG(
         print(f'Connection port: {conn.port}')
         
         # Hook 의 get_conn 메소드로 실제 통신 객체를 참조해보겠습니다.
-        hook = HttpHook(conn_id)
+        hook = HttpHook(http_conn_id=conn_id) # 첫번째 파라미터는 hook.run() 메소드 사용시 필요함.
         
         # Connection 정보 조회
         # hook.get_connection() # BaseHook.get_connection(conn_id) 와 동일
