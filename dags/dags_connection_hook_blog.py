@@ -61,4 +61,4 @@ with DAG(
         with open(f'{file_save_dir}/data.json', 'w', encoding='UTF-8') as f:
             f.write(result_json) # json 문자열을 파일로 저장!
 
-    read_dummy_json_task()
+    read_dummy_json_task() >> save_json_text_to_file()
