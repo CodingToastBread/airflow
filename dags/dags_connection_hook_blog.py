@@ -1,6 +1,5 @@
 from airflow import DAG
 from airflow.decorators import task
-from airflow.models import TaskInstance
 import pendulum
 
 
@@ -12,7 +11,7 @@ with DAG(
 ) as dag:
     
     @task(task_id='read_dummy_json_task')
-    def read_dummy_json_task(ti: TaskInstance):
+    def read_dummy_json_task():
         import os
         from airflow.hooks.base import BaseHook
         from airflow.providers.http.hooks.http import HttpHook
