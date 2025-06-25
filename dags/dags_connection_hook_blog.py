@@ -26,8 +26,8 @@ with DAG(
         # 설정한 정보를 조회할 수 있습니다.
         print(f'Connection Id: {conn.conn_id}')
         print(f'Connection Type: {conn.conn_type}')
+        print(f'Connection schema: {conn.schema}')
         print(f'Connection host: {conn.host}')
-        print(f'Connection port: {conn.port}')
         
         # Hook 의 get_conn 메소드로 실제 통신 객체를 참조해보겠습니다.
         hook = HttpHook(http_conn_id=conn_id) # 첫번째 파라미터는 hook.run() 메소드 사용시 필요함.
