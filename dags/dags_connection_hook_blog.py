@@ -1,5 +1,7 @@
+import os
 from airflow import DAG
 from airflow.decorators import task
+from airflow.models import TaskInstance
 import pendulum
 
 
@@ -11,7 +13,7 @@ with DAG(
 ) as dag:
     
     @task(task_id='read_dummy_json_task')
-    def read_dummy_json_task():
+    def read_dummy_json_task(**kwargs):
         import os
         from airflow.hooks.base import BaseHook
         from airflow.providers.http.hooks.http import HttpHook
@@ -44,9 +46,19 @@ with DAG(
         # requests.Session 인스턴스의 메소드를 사용해서 json 데이터 받아오기
         response = session.get(f'{hook.base_url}/posts') 
 
+        # xcom_push 의 RETURN_VALUE 키의 value 로 return 값이 들어갑니다.
+        return response.text
+    
+
+    @task(task_id='save_json_text_to_file')
+    def save_json_text_to_file(task_instance: TaskInstance, **kwargs):
+        print(f'data_interval_end : {kwargs['data_interval_start'].in_timezone("Asia/Seoul")}')
+        
+        # read_dummy_json_task 메소드가 반환한 response.text 값을 받습니다.
+        result_json = task_instance.xcom_pull(task_ids=read_dummy_json_task)
         file_save_dir = '/opt/airflow/files'
         os.makedirs(file_save_dir, exist_ok=True)
         with open(f'{file_save_dir}/data.json', 'w', encoding='UTF-8') as f:
-            f.write(response .text) # json 문자열을 파일로 저장!
+            f.write(result_json) # json 문자열을 파일로 저장!
 
     read_dummy_json_task()
