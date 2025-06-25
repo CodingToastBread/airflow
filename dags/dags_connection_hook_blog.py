@@ -16,8 +16,6 @@ with DAG(
         from airflow.hooks.base import BaseHook
         from airflow.providers.http.hooks.http import HttpHook
         
-        print(f'START {ti.task_id} [{ti.data_interval_end.in_timezone("Asia/Seoul")}]')
-
         conn_id = 'jsonplaceholder.typicode'
 
         # Hook 의 classMethod (=get_connection) 으로 connection_id 와 매칭되는 정보를 갖는 Connection 인스턴스 생성
