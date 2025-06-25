@@ -15,3 +15,5 @@ wheels/
 .ipynb_checkpoints
 
 .idea
+
+simple_test
