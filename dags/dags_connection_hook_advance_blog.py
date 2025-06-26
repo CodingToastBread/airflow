@@ -1,9 +1,6 @@
-import os
 from airflow import DAG
 from airflow.decorators import task
-from airflow.models import TaskInstance
 from airflow.providers.http.operators.http import HttpOperator
-from airflow.utils.context import Context
 import pendulum
 
 
@@ -24,13 +21,19 @@ with DAG(
     )
 
     @task(task_id='save_json_text_to_file')
-    def save_json_text_to_file(context: Context, **kwargs):
+    def save_json_text_to_file(**kwargs):
+        import os
         from airflow.models import Variable
+        from airflow.operators.python import get_current_context
+        
+        context = get_current_context()
+        ti = context['ti']
+        
         print(f'data_interval_end : {context.data_interval_end.in_timezone("Asia/Seoul")}')
         # print(f'data_interval_end : {kwargs["data_interval_start"].in_timezone("Asia/Seoul")}')
 
         # read_dummy_json_task 메소드가 반환한 response.text 값을 받습니다.
-        ti = kwargs['ti']
+        # ti = kwargs['ti']
         result_json = ti.xcom_pull(task_ids='read_dummy_json_task')
         
         # 공통 저장 디렉토리 경로 조회
