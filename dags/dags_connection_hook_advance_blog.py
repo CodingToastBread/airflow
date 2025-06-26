@@ -29,7 +29,7 @@ with DAG(
         context = get_current_context()
         ti = context['ti']
         
-        print(f'data_interval_end : {context.data_interval_end.in_timezone("Asia/Seoul")}')
+        print(f'data_interval_end : {context['data_interval_end'].in_timezone("Asia/Seoul")}')
         # print(f'data_interval_end : {kwargs["data_interval_start"].in_timezone("Asia/Seoul")}')
 
         # read_dummy_json_task 메소드가 반환한 response.text 값을 받습니다.
