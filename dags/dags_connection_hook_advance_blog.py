@@ -16,8 +16,9 @@ with DAG(
     read_dummy_json_task = HttpOperator(
         task_id='read_dummy_json_task',
         headers={ 'Accept': 'application/json' },
+        method='GET',
         http_conn_id=conn_id,
-        endpoint='/posts', method='GET'
+        endpoint='/posts',
     )
 
     @task(task_id='save_json_text_to_file')
