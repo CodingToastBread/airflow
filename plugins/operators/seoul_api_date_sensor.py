@@ -35,7 +35,7 @@ class SeoulApiDateSensor(BaseSensorOperator):
             pendulum.from_format(last_date, 'YYYY-MM-DD')
         except:
             from airflow.exceptions import AirflowException
-            AirflowException(f'{self.base_dt_col} 컬럼은 YYYY.MM.DD 또는 YYYY/MM/DD 형태가 아닙니다.')
+            raise AirflowException(f'{self.base_dt_col} 컬럼은 YYYY.MM.DD 또는 YYYY/MM/DD 형태가 아닙니다.')
         
         if last_date >= search_ymd:
             self.log.info(f'생성 확인(기준 날짜: {search_ymd} / API Last 날짜: {last_date})')

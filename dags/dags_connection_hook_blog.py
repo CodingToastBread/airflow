@@ -14,7 +14,6 @@ with DAG(
     
     @task(task_id='read_dummy_json_task')
     def read_dummy_json_task(**kwargs):
-        import os
         from airflow.hooks.base import BaseHook
         from airflow.providers.http.hooks.http import HttpHook
         

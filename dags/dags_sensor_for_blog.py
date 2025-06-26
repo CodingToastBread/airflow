@@ -22,7 +22,8 @@ with DAG(
     file_sensor = FileSensor(
         task_id='file_sensor',
         filepath=filepath,
-        poke_interval=12 # 초 주기
+        poke_interval=2, # 2초 주기
+        soft_fail=False
     )
 
     def file_exists(filepath):
@@ -34,7 +35,8 @@ with DAG(
         task_id='python_sensor',
         op_kwargs={ 'filepath': filepath },
         python_callable=file_exists,
-        poke_interval=10 # 초 주기
+        poke_interval=3, # 3 초 주기
+        soft_fail=False
     )
     
     # BashSensor 의 경우 return 값은 exit 0 일 때 True 로 판단하고,
@@ -49,7 +51,8 @@ with DAG(
             exit 1
         fi
         ''',
-        poke_interval=8 # 5초 주기
+        poke_interval=4, # 4초 주기
+        soft_fail=False,
     )
     
     # 위에 선언한 센서들이 모두 성공이든/실패든 완료되면 이 태스트를 실행
