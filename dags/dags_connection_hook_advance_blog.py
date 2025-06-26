@@ -17,7 +17,7 @@ with DAG(
         task_id='read_dummy_json_task',
         headers={ 'Accept': 'application/json' },
         http_conn_id=conn_id,
-        endpoint='/posts'
+        endpoint='/posts', method='GET'
     )
 
     @task(task_id='save_json_text_to_file')
