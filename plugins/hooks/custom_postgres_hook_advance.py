@@ -2,6 +2,7 @@ from airflow.hooks.base import BaseHook
 from pandas.io.parsers import read_csv
 import psycopg2
 import pandas as pd
+from sqlalchemy.types import String
 
 class CustomPostgresAdvanceHook(BaseHook):
 
@@ -36,11 +37,13 @@ class CustomPostgresAdvanceHook(BaseHook):
         first_loop = True
         
         for chunk in pd.read_csv(file_name, header=header, delimiter=delimiter, chunksize=10000, encoding=encoding):
+            dtype = None
             for col in chunk.columns:
                 try:
                     # string 문자열이 아닐 경우 continue
                     chunk[col] = chunk[col].str.replace('\r\n', '')
                     self.log.info(f'{table_name}.{col}: 개행문자 제거')
+                    dtype = {col: String for col in chunk.columns}
                 except:
                     continue
 
@@ -55,7 +58,8 @@ class CustomPostgresAdvanceHook(BaseHook):
                     con=engine,
                     schema='public',
                     if_exists='replace',
-                    index=False
+                    index=False,
+                    dtype=dtype
                 )
 
             else:
@@ -64,5 +68,6 @@ class CustomPostgresAdvanceHook(BaseHook):
                     con=engine,
                     schema='public',
                     if_exists='append',
-                    index=False
+                    index=False,
+                    dtype=dtype
                 )
