@@ -43,11 +43,12 @@ class CustomPostgresAdvanceHook(BaseHook):
                     # string 문자열이 아닐 경우 continue
                     chunk[col] = chunk[col].str.replace('\r\n', '')
                     self.log.info(f'{table_name}.{col}: 개행문자 제거')
-                    dtype = {col: String for col in chunk.columns}
+                    
                 except:
                     continue
-
+            
             self.log.info('[ADVANCE] 적재 건수:' + str(len(chunk)))
+            dtype = {col: String for col in chunk.columns}
             engine = create_engine(uri)
             
             # 첫번째 loop 이고, is_replace=True 면 if
