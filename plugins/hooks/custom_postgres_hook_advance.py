@@ -1,4 +1,5 @@
 from airflow.hooks.base import BaseHook
+from pandas.io.parsers import read_csv
 import psycopg2
 import pandas as pd
 
@@ -31,26 +32,26 @@ class CustomPostgresAdvanceHook(BaseHook):
         self.get_conn()
         header = 0 if is_header else None
         if_exists = 'replace' if is_replace else 'append'
-        file_df = pd.read_csv(file_name, header=header, delimiter=delimiter, chunksize=10000)
         
-        for col in file_df.columns:
-            try:
-                # string 문자열이 아닐 경우 continue
-                file_df[col] = file_df[col].str.replace('\r\n', '')
-                self.log.info(f'{table_name}.{col}: 개행문자 제거')
-            except:
-                continue
-
-        self.log.info('적재 건수:' + str(len(file_df)))
         uri = f'postgresql://{self.user}:{self.password}@{self.host}/{self.dbname}'
         
-        engine = create_engine(uri)
-        file_df.to_sql(
-            name=table_name,
-            con=engine,
-            schema='public',
-            if_exists=if_exists,
-            index=False
-        )
-        
+        for chunk in pd.read_csv(file_name, header=header, delimiter=delimiter, chunksize=10000):
+            for col in chunk.columns:
+                try:
+                    # string 문자열이 아닐 경우 continue
+                    chunk[col] = chunk[col].str.replace('\r\n', '')
+                    self.log.info(f'{table_name}.{col}: 개행문자 제거')
+                except:
+                    continue
+
+            self.log.info('적재 건수:' + str(len(chunk)))
+            
+            engine = create_engine(uri)
+            chunk.to_sql(
+                name=table_name,
+                con=engine,
+                schema='public',
+                if_exists=if_exists,
+                index=False
+            )
         
