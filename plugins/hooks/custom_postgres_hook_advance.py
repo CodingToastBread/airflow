@@ -31,9 +31,9 @@ class CustomPostgresAdvanceHook(BaseHook):
         self.log.info('테이블:' + table_name)
         self.get_conn()
         header = 0 if is_header else None
-        if_exists = 'replace' if is_replace else 'append'
         
         uri = f'postgresql://{self.user}:{self.password}@{self.host}/{self.dbname}'
+        first_loop = True
         
         for chunk in pd.read_csv(file_name, header=header, delimiter=delimiter, chunksize=10000):
             for col in chunk.columns:
@@ -45,13 +45,24 @@ class CustomPostgresAdvanceHook(BaseHook):
                     continue
 
             self.log.info('적재 건수:' + str(len(chunk)))
-            
             engine = create_engine(uri)
-            chunk.to_sql(
-                name=table_name,
-                con=engine,
-                schema='public',
-                if_exists=if_exists,
-                index=False
-            )
-        
+            
+            # 첫번째 loop 이고, is_replace=True 면 if
+            if first_loop and is_replace:
+                first_loop = False
+                chunk.to_sql(
+                    name=table_name,
+                    con=engine,
+                    schema='public',
+                    if_exists='replace',
+                    index=False
+                )
+
+            else:
+                chunk.to_sql(
+                    name=table_name,
+                    con=engine,
+                    schema='public',
+                    if_exists='append',
+                    index=False
+                )
