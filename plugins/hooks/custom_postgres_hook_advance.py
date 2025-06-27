@@ -44,7 +44,7 @@ class CustomPostgresAdvanceHook(BaseHook):
                 except:
                     continue
 
-            self.log.info('적재 건수:' + str(len(chunk)))
+            self.log.info('[ADVANCE] 적재 건수:' + str(len(chunk)))
             engine = create_engine(uri)
             
             # 첫번째 loop 이고, is_replace=True 면 if
