@@ -24,7 +24,7 @@ class CustomPostgresAdvanceHook(BaseHook):
             port=self.port
         )
 
-    def bulk_load(self, table_name, file_name, delimiter:str, is_header:bool, is_replace: bool):
+    def bulk_load(self, table_name, file_name, delimiter:str, is_header:bool, is_replace: bool, encoding='utf-8'):
         from sqlalchemy import create_engine
 
         self.log.info('적재 대상파일:' + file_name)
@@ -35,7 +35,7 @@ class CustomPostgresAdvanceHook(BaseHook):
         uri = f'postgresql://{self.user}:{self.password}@{self.host}/{self.dbname}'
         first_loop = True
         
-        for chunk in pd.read_csv(file_name, header=header, delimiter=delimiter, chunksize=10000):
+        for chunk in pd.read_csv(file_name, header=header, delimiter=delimiter, chunksize=10000, encoding=encoding):
             for col in chunk.columns:
                 try:
                     # string 문자열이 아닐 경우 continue
