@@ -21,7 +21,7 @@ with DAG(
         python_callable=insrt_postgres,
         op_kwargs={
             "postgres_conn_id": "conn-db-postgres-custom",
-            "tbl_nm": "customers_info",
+            "tbl_nm": "AL_D161_11",
             'file_nm': "/opt/airflow/files/csv_sample/AL_D161_11_20250607.csv",
         },
     )
